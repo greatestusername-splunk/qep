@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: creditprocessorservice 
+  name: creditprocessorservice
 spec:
   selector:
     matchLabels:
@@ -33,6 +33,8 @@ spec:
         # manifest file. Can you find the other 2 settings?
         - name: OTEL_EXPORTER_OTLP_ENDPOINT
           value: "http://$(NODE_IP):4317"
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: 'deployment.environment=qep-creditflow,service.version=2.0'
         resources:
           requests:
             cpu: 110m

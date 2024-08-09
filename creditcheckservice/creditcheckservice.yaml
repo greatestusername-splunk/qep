@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: creditcheckservice 
+  name: creditcheckservice
 spec:
   selector:
     matchLabels:
@@ -21,6 +21,18 @@ spec:
         ports:
         - containerPort: 8888
         env:
+        - name: NODE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        - name: OTEL_SERVICE_NAME
+          value: creditcheckservice
+        - name:  OTEL_PROPAGATORS
+          value: "tracecontext,baggage,b3multi"
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: 'http://$(NODE_IP):4317'
+        - name: OTEL_RESOURCE_ATTRIBUTES
+          value: 'deployment.environment=qep-creditflow,service.version=2.0'
         - name: PORT
           value: "8888"
         - name: NODE_IP
@@ -40,10 +52,10 @@ kind: Service
 metadata:
   name: creditcheckservice
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: creditcheckservice
   ports:
-  - protocol: TCP
+  - name: http
     port: 8888
     targetPort: 8888

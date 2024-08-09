@@ -15,9 +15,9 @@ def test_it():
 @app.route('/check')
 def credit_check():
     customerNum = request.args.get('customernum')
-    
+
     # Get Credit Score
-    creditScoreReq = requests.get("http://creditprocessorservice:8899/getScore?customernum=" + customernumber)
+    creditScoreReq = requests.get("http://creditprocessorservice:8899/getScore?customernum=" + customerNum)
     creditScore = int(creditScoreReq.text)
     creditScoreCategory = getCreditCategoryFromScore(creditScore)
 
