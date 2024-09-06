@@ -1,25 +1,15 @@
-# qep Instructions
-
-## Objective
-This exercise will simulate:
-* Instrumenting a new service within an existing application
-* Viewing the overall application in Splunk Observability Cloud
-* Adding manual instrumentation, including tags, to uncover issues with the application
-
-> :warning: **Important Note**: Read all of these instructions here. There are some important details here, and if you gloss over them you may struggle to get your application instrumented and working.
+# qep OTel Demo Instructions
 
 ## Pre-requisites
-You will start with an EC2 environment that already has some useful components, but we will perform some [initial steps](#initial-steps) in order to get to the following state:
-  * Kubernetes (k3s)
-  * Hipster Shop (the demo application)
-  * `paymentservice`: Updated service, instrumented
-  * `creditcheckservice`: Your service and code, uninstrumented
-  * `creditprocessorservice`: A new service your service relies on, instrumented
+You will need an instance with the following installed and configured:
+  * k3s (Kubernetes), 
+  * helm (and the [splunk-otel-collector-chart](https://github.com/signalfx/splunk-otel-collector-chart/tree/main) added)
 
 ## Initial Steps
 To begin the exercise you will need to:
-* Get an "Observability Portfolio Demo" environment
+* Get an EC2 instance or spin up a Splunk Show environment
 * Clone this repo
+* Make sure you have all the pre-requisites installed in your instance
 * Run the setup scripts in order
 ```
 cd qep
@@ -33,7 +23,9 @@ cd qep
 ./6-deploy-updated-paymentservice.sh
 ```
 
-## Your steps
+# Unrelated to this demo
+
+## Next steps
 You will now begin to implement what you need to for the proof of value, based on the customer requirements you received.
 
 The service that you are working on is **creditcheckservice**. It sits between the **paymentservice** and the **creditprocessorservice**.
