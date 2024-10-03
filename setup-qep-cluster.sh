@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This setup script will:
+## This setup script will:
 # (1) Install the otel collector (for your org)
 # (2) Deploy the hipster shop app
 
