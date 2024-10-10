@@ -9,14 +9,14 @@ SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 
 # Prompts
-echo 'Enter environment (i.e. qep):'
-read ENVIRONMENT
-echo 'Enter realm (i.e. us1):'
-read REALM
-echo 'Enter ingest token:'
-read INGEST_TOKEN
-echo 'Enter rum token:'
-read RUM_TOKEN
+# echo 'Enter environment (i.e. qep):'
+# read ENVIRONMENT
+# echo 'Enter realm (i.e. us1):'
+# read REALM
+# echo 'Enter ingest token:'
+# read INGEST_TOKEN
+# echo 'Enter rum token:'
+# read RUM_TOKEN
 
 # (1) Install the otel collector (for your org)
 OTEL_VALUES_PATH="$SCRIPTPATH/otel/values.yaml"
