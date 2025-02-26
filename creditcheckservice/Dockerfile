@@ -17,4 +17,4 @@ RUN export OTEL_PYTHON_DISABLED_INSTRUMENTATIONS=aws-lambda
 COPY main.py .
 
 # Set the entrypoint command to run the application
-CMD ["splunk-py-trace", "python3", "main.py"]
+CMD ["opentelemetry-instrument", "python3", "main.py"]
