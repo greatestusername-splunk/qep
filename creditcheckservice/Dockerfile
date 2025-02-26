@@ -8,7 +8,7 @@ COPY requirements.txt .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
-RUN splunk-py-trace-bootstrap
+RUN opentelemetry-bootstrap
 RUN export OTEL_SERVICE_NAME=creditcheckservice
 RUN export OTEL_RESOURCE_ATTRIBUTES='deployment.environment=qep,service.version=2.0'
 RUN export OTEL_PYTHON_DISABLED_INSTRUMENTATIONS=aws-lambda
