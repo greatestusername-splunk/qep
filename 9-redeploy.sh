@@ -9,6 +9,7 @@
 # (5) Find and delete the pod (so it is redeployed)
 #
 # (1) Build the credit-check-service app
+echo $APPDYNAMICS_AGENT_APPLICATION_NAME
 docker build --build-arg APPDYNAMICS_AGENT_APPLICATION_NAME=$APPDYNAMICS_AGENT_APPLICATION_NAME -t credit-check-service:latest creditcheckservice
 
 # (2) Export the image from docker
