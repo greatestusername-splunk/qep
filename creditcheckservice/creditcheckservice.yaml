@@ -35,6 +35,10 @@ spec:
           value: 'deployment.environment=qep-creditflow,service.version=2.0'
         - name: OTEL_PYTHON_DISABLED_INSTRUMENTATIONS
           value: "aws-lambda"
+        - name: PYTHONUNBUFFERED
+          value: True
+        - name: PYTHONIOENCODING
+          value: "UTF-8"
         - name: PORT
           value: "8888"
         - name: NODE_IP
