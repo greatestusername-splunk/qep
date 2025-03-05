@@ -62,10 +62,12 @@ def getCreditCategoryFromScore(score):
     url = f"http://{node_ip}:8080/vets"
     print(f"Using NODE_IP: {node_ip}")
 
+    peer_service_value = os.getenv('APPDYNAMICS_AGENT_APPLICATION_NAME', 'credit-vetting-appdynamics')
+    
     # Manually create a span for the request
     with tracer.start_as_current_span("HTTP GET to /vets", kind=SpanKind.CLIENT) as span:
         span.set_attribute("http.url", url)
-        span.set_attribute("peer.service", "petclinic-appdynamics")  # Name of the external service
+        span.set_attribute("peer.service", peer_service_value)  # Name of the external service
 
         try:
             print(url)
