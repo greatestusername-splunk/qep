@@ -59,7 +59,7 @@ def credit_check():
 def getCreditCategoryFromScore(score):
     # Retrieve NODE_IP from environment variable
     node_ip = os.getenv('NODE_IP', 'localhost')  # Default to 'localhost' if NODE_IP is not set
-    url = f"http://{node_ip}:8080/vets"
+    url = f"http://{node_ip}:8080/owners"
     print(f"Using NODE_IP: {node_ip}")
 
     peer_service_value = "APPDYNAMICS_AGENT_APPLICATION_NAME" # we replace this value with ansible pre-build
