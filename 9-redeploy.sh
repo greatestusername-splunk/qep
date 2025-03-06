@@ -10,7 +10,7 @@
 #
 # (1) Build the credit-check-service app
 echo $APPDYNAMICS_AGENT_APPLICATION_NAME
-docker build --build-arg APPDYNAMICS_AGENT_APPLICATION_NAME=$APPDYNAMICS_AGENT_APPLICATION_NAME -t credit-check-service:latest creditcheckservice
+docker build --build-arg appd_app_name=${APPDYNAMICS_AGENT_APPLICATION_NAME} -t credit-check-service:latest creditcheckservice
 
 # (2) Export the image from docker
 docker save --output credit-check-service.tar credit-check-service:latest
