@@ -67,7 +67,7 @@ def getCreditCategoryFromScore(score):
     peer_service_value = "APPDYNAMICS_AGENT_APPLICATION_NAME" # we replace this value with ansible pre-build
     
     # Manually create a span for the request
-    with tracer.start_as_current_span("HTTP GET to /vets", kind=SpanKind.CLIENT) as span:
+    with tracer.start_as_current_span("HTTP GET to /vet", kind=SpanKind.CLIENT) as span:
         span.set_attribute("http.url", url)
         span.set_attribute("peer.service", peer_service_value)  # Name of the external service
 
