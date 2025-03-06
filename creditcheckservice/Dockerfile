@@ -4,9 +4,6 @@ FROM python:3.11-slim
 WORKDIR /app
 ENV PYTHONUNBUFFERED=1
 
-ARG appd_app_name
-ENV APPDYNAMICS_AGENT_APPLICATION_NAME=$appd_app_name
-
 # Copy requirements over
 COPY requirements.txt .
 
