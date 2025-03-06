@@ -1,7 +1,5 @@
 import os
 import requests
-import random
-import time
 from flask import Flask, request
 from waitress import serve
 from opentelemetry import trace
@@ -81,11 +79,8 @@ def getCreditCategoryFromScore(score):
             print(f"Error contacting external service: {e}")
 
     creditScoreCategory = ''
-    sleep_duration = random.uniform(90, 120)
     match score:
         case num if num > 850:
-            print(f"Impossible! Sleep for {sleep_duration} seconds.")
-            time.sleep(sleep_duration)
             creditScoreCategory = 'impossible'
         case num if 800 <= num <= 850:
             creditScoreCategory = 'exceptional'
@@ -98,8 +93,6 @@ def getCreditCategoryFromScore(score):
         case num if 300 <= num < 580:
             creditScoreCategory = 'poor'
         case _:
-            print(f"Impossible! Sleep for {sleep_duration} seconds.")
-            time.sleep(sleep_duration)
             creditScoreCategory = 'impossible'
 
     print(f"Credit score category: {creditScoreCategory}")
