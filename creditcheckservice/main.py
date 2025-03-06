@@ -84,8 +84,8 @@ def getCreditCategoryFromScore(score):
     sleep_duration = random.uniform(90, 120)
     match score:
         case num if num > 850:
+            print(f"Impossible! Sleep for {sleep_duration} seconds.")
             time.sleep(sleep_duration)
-            print(f"Impossible! Slept for {sleep_duration} seconds.")
             creditScoreCategory = 'impossible'
         case num if 800 <= num <= 850:
             creditScoreCategory = 'exceptional'
@@ -98,8 +98,8 @@ def getCreditCategoryFromScore(score):
         case num if 300 <= num < 580:
             creditScoreCategory = 'poor'
         case _:
+            print(f"Impossible! Sleep for {sleep_duration} seconds.")
             time.sleep(sleep_duration)
-            print(f"Impossible! Slept for {sleep_duration} seconds.")
             creditScoreCategory = 'impossible'
 
     print(f"Credit score category: {creditScoreCategory}")
