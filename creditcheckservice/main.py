@@ -82,6 +82,7 @@ def getCreditCategoryFromScore(score):
     creditScoreCategory = ''
     match score:
         case num if num > 850:
+            span.set_attribute("http.status_code", 500)
             creditScoreCategory = 'impossible'
         case num if 800 <= num <= 850:
             creditScoreCategory = 'exceptional'
@@ -94,6 +95,7 @@ def getCreditCategoryFromScore(score):
         case num if 300 <= num < 580:
             creditScoreCategory = 'poor'
         case _:
+            span.set_attribute("http.status_code", 500)
             creditScoreCategory = 'impossible'
 
     print(f"Credit score category: {creditScoreCategory}")
