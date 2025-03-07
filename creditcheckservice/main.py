@@ -74,6 +74,16 @@ def getCreditCategoryFromScore(score):
             response = requests.get(url)
             span.set_attribute("http.status_code", response.status_code)
             print(f"Response from external service: {response.text}")
+
+            # Check if the response body contains an error message
+            try:
+                response_json = response.json()
+                if response_json.get("status") == "error":
+                    span.set_attribute("http.status_code", 500)
+                    print(f"Error message in response: {response_json.get('message')}")
+            except ValueError:
+                # Handle case where response is not JSON
+                print("Response body is not JSON")
         except requests.exceptions.RequestException as e:
             span.record_exception(e)
             span.set_attribute("http.status_code", 500)
@@ -82,7 +92,6 @@ def getCreditCategoryFromScore(score):
     creditScoreCategory = ''
     match score:
         case num if num > 850:
-            span.set_attribute("http.status_code", 500)
             creditScoreCategory = 'impossible'
         case num if 800 <= num <= 850:
             creditScoreCategory = 'exceptional'
@@ -95,8 +104,10 @@ def getCreditCategoryFromScore(score):
         case num if 300 <= num < 580:
             creditScoreCategory = 'poor'
         case _:
-            span.set_attribute("http.status_code", 500)
             creditScoreCategory = 'impossible'
+    
+    span.set_attribute("credit-score", num)
+    span.set_attribute("credit-category", creditScoreCategory)
 
     print(f"Credit score category: {creditScoreCategory}")
     return creditScoreCategory
