@@ -76,6 +76,7 @@ def getCreditCategoryFromScore(score):
             print(f"Response from external service: {response.text}")
         except requests.exceptions.RequestException as e:
             span.record_exception(e)
+            span.set_attribute("http.status_code", 500)
             print(f"Error contacting external service: {e}")
 
     creditScoreCategory = ''
