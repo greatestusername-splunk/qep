@@ -63,9 +63,9 @@ def getCreditCategoryFromScore(score):
     print(f"Using NODE_IP: {node_ip}")
 
     peer_service_value = "APPDYNAMICS_AGENT_APPLICATION_NAME" # we replace this value with ansible pre-build
-    
+
     # Manually create a span for the request
-    with tracer.start_as_current_span("HTTP GET to /vet", kind=SpanKind.CLIENT) as span:
+    with tracer.start_as_current_span("HTTP GET to /owners", kind=SpanKind.CLIENT) as span:
         span.set_attribute("http.url", url)
         span.set_attribute("peer.service", peer_service_value)  # Name of the external service
 
@@ -89,25 +89,27 @@ def getCreditCategoryFromScore(score):
             span.set_attribute("http.status_code", 500)
             print(f"Error contacting external service: {e}")
 
-    creditScoreCategory = ''
-    match score:
-        case num if num > 850:
-            creditScoreCategory = 'impossible'
-        case num if 800 <= num <= 850:
-            creditScoreCategory = 'exceptional'
-        case num if 740 <= num < 800:
-            creditScoreCategory = 'very good'
-        case num if 670 <= num < 740:
-            creditScoreCategory = 'good'
-        case num if 580 <= num < 670:
-            creditScoreCategory = 'fair'
-        case num if 300 <= num < 580:
-            creditScoreCategory = 'poor'
-        case _:
-            creditScoreCategory = 'impossible'
-    
-    span.set_attribute("credit-score", num)
-    span.set_attribute("credit-category", creditScoreCategory)
+        creditScoreCategory = ''
+        match score:
+            case num if num > 850:
+                creditScoreCategory = 'impossible'
+                span.set_attribute("http.status_code", 500)
+            case num if 800 <= num <= 850:
+                creditScoreCategory = 'exceptional'
+            case num if 740 <= num < 800:
+                creditScoreCategory = 'very good'
+            case num if 670 <= num < 740:
+                creditScoreCategory = 'good'
+            case num if 580 <= num < 670:
+                creditScoreCategory = 'fair'
+            case num if 300 <= num < 580:
+                creditScoreCategory = 'poor'
+            case _:
+                span.set_attribute("http.status_code", 500)
+                creditScoreCategory = 'impossible'
+
+        span.set_attribute("credit-score", num)
+        span.set_attribute("credit-category", creditScoreCategory)
 
     print(f"Credit score category: {creditScoreCategory}")
     return creditScoreCategory
